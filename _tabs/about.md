@@ -4,7 +4,7 @@ icon: fas fa-info-circle
 order: 1
 ---
 
-<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+<!-- <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script> -->
 
 
 # I am always backpropagating
@@ -24,8 +24,8 @@ I am open to all types of problems that involve finding and analyzing complex pa
 
 # Programing skills
 
-<span class="iconify-inline" data-icon="logos:python"></span> Python
+<!-- <span class="iconify-inline" data-icon="logos:python"></span> Python
 
 <span class="iconify-inline" data-icon="cib:rstudio"></span> R
 
-<span class="iconify-inline" data-icon="cib:tensorflow" style="color: #ff8300;"></span>  Tensorflow (low level API and Keras)
+<span class="iconify-inline" data-icon="cib:tensorflow" style="color: #ff8300;"></span>  Tensorflow (low level API and Keras) -->
