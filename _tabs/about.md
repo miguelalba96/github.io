@@ -2,10 +2,12 @@
 title: About
 icon: fas fa-info-circle
 order: 1
-custom-javascript: "https://code.iconify.design/2/2.0.3/iconify.min.js"
 ---
 
-<script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+
+<!-- <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script> -->
+
+{% include iconcomp.html %}
 
 
 # I am always backpropagating
