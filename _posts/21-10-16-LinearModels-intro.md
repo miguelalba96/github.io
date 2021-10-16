@@ -34,6 +34,13 @@ library(ggplot2)
 ggplot(dataset,aes(first_variable, second_variable, color=categorical_variable)) + geom_point()
 ```
 
+In Python using the module `seaborn`
+
+```python
+import seaborn 
+sns.scatterplot(data=dataset, x="first_variable", y="second_variable", hue="categorical_variable")
+```
+
 This results in the following plot for the dataset `mtcars`
 ![ScatterPlot2](/assets/posts/linear_models/scatter2.svg)
 
@@ -208,4 +215,143 @@ We use the symbol "hat" (ex. $\hat{y}$) to represent the individual values of th
 
 linearity refers to the point at which the conditional expectation of $Y$ is a linear function of $X_i$ in a population model. Geometrically, the regression curve in this case is a straight line. In this interpretation, a regression function such as $\mathbb{E}[Y \| X_i] = \beta_0 + \beta_1 x^2_i$ is not a linear function because the variable $x$ is squared.
 
+#### Parameters linearity
+
+The second interpretation of linearity is produced when $\mathbb{E}[Y \| X_i]$ is a linear function of the parameters $\beta$, such as $\mathbb{E}[Y \| X_i] = \beta_0 + \beta_1^2 x_i$, which is non-linear with respect to $\beta_1$. This case is an example of a **non-linear regression model (in the parameter)**.  
+
 ## Parameter estimation
+
+For the parameter estimation in linear regression models, in general, the most widely known estimation method is called **Ordinary Least Squares Method (OLS)**. 
+
+In the case of the model with intercept, the following reasoning is used to estimate $\hat{\beta}_1$ and  $\hat{\beta}_0$:
+
+1. We estimate $\hat{\beta}_1$ as follows:
+
+    $$\hat{\beta}_1 = \frac{\sum{xy}-n\bar{x}\bar{y}}{\sum{x^2} - n\bar{x}^2}$$
+
+    simplified it can also be written as:
+
+    $$\hat{\beta}_1 = \frac{\sum{(x_i -\bar{x})(y_i -\bar{y})}}{\sum{(x_i - \bar{x})^2}}=\frac{S_{xy}}{S_{xx}}$$
+
+2. Then the intercept $\hat{\beta}_0$ can be calculated as follows:
+
+    $$\hat{\beta}_0=\bar{y} - \hat{\beta}_1 \bar{x}$$
+
+    where $\hat{\beta}_0$ represents the expected value in $Y$ when $X$ is equal to zero and $\hat{\beta}_1$ represents the variation in $Y$ when $X$ increases in one unit (the derivative of $Y$ w.r.t $X$)
+
+
+## Ordinary Least Squares properties
+
+The ordinary least squares method is attributed to Carl Friedrich Gauss, a German mathematician. The least squares method has very attractive statistical properties that have made it one of the most effective and popular methods of regression analysis. Lets have a look to the principles behind this estimation technique.
+
+Considering the regression model:
+
+$$y=\hat{\beta}_0 + \hat{\beta}_1 x + \hat{\varepsilon}$$
+
+$$=\hat{y} + \hat{\varepsilon}$$
+
+where 
+
+$$\hat{\varepsilon}=y -\hat{y}$$
+
+$$\hat{\varepsilon}=y - \hat{\beta}_0 + \hat{\beta}_1 x_i$$
+
+
+These residuals correspond to the vertical distances between the values that did not fit the model and the regression line, in order to identify if the proposed model is good, it is necessary to check if the amount of errors is close to zero computing a the following total distance:
+
+$$S = \sum_{i=1}^{n}{\hat{\varepsilon}_i}$$
+
+<!-- Taking into account that the line is an average, the sum should be annulled so if we want to evaluate the dispersion the distances will be squared trying to minimize the following function: -->
+
+$$S=\sum_{i=1}^{n}{\hat{\varepsilon}_i}=\sum_{i=1}^{n}{(y_i - \hat{y}_i)^2} = \sum_{i=1}^{n}{(y_i - \hat{\beta}_0 + \hat{\beta}_1 x_i)^2} $$
+
+Then the objective is minimize this distance, also named as the sum of squares $S$ of the difference between the observed dependent variable and the predictions given by the linear function.
+
+The estimators obtained above ($\hat{\beta}_0$ and $\hat{\beta}_1$) are known as least squares estimators, since they are derived from the ordinary least squares principle. These estimators have two types of properties:
+
+1. *Numerical properties*: Those that hold as a consequence of using ordinary least squares, regardless of how the data were generated.
+
+2. *Statistical properties*: Those that hold only with certain assumptions about the way the data were generated.
+
+These different properties can be further described as follows:
+
+- OLS estimators are expressed only in terms of the quantities (i.e., $X$ and $Y$ ) observable (i.e., samples).
+
+- *They are point estimators*: Given the sample, each estimator provides only one (point) value of the relevant population parameter (not an interval).
+
+- Once the OLS estimators of the sample data are obtained, the sample regression line is obtained without farther calculations, this line has the following properties:
+
+    1. Passes through the sample means of $Y$ and $X$. As $\bar{y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x}$
+
+    2. The mean value of the estimated $Y$ ($\hat{y}_i$) is equal to the mean value of the real $Y$ for:
+
+        $$\hat{y}_i=\hat{\beta}_0 + \hat{\beta}_1 x_i$$
+
+        $$=(\bar{y} - \hat{\beta}_1 \bar{x}) + \hat{\beta}_1 x_i$$
+
+        $$=\bar{y} + \hat{\beta}_1 (x_i - \bar{x} ) $$
+
+
+        When adding both sides of the last equality over the sample values and dividing by the sample size $n$, we obtain:
+
+        $$\bar{\hat{y}}=y $$
+
+    3. The average of the residuals is 0.
+
+        $$-2\sum_{i=1}^{n}{y_i - \hat{\beta}_0 + \hat{\beta}_1 x_i}=0$$
+
+        However, as $\hat{\varepsilon}_i= y_i - \hat{\beta}_0 + \hat{\beta}_1 x_i $, the last equation gets reduced to:
+        
+        $$-2\sum_{i=1}^{n}{\hat{\varepsilon}_i}=0$$
+
+
+        The expression $y=\hat{\beta}_0 + \hat{\beta}_1 x + \hat{\varepsilon}$ could be defined in a way $X$ and $Y$ are expressed as deviations of their means. for such purpose, we can sum the equation in both sides as follows:
+
+        $$\sum{y}=n \hat{\beta}_0 + \hat{\beta}_1 \sum{x_i} + \sum{\hat{\varepsilon}_i}$$
+
+        when diving by $n$ we obtain:
+
+        $$\bar{y} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x}$$
+
+        where, subtracting $y_i = \hat{\beta}_0 + \hat{\beta}_1 x_i + \hat{\varepsilon}_i$, we can obtain:
+
+        $$y_i - \bar{y} = \hat{\beta}_1 (x_i - \bar{x} ) + \hat{\varepsilon}$$
+
+        or 
+
+        $$y_i = \hat{\beta}_1 x + \hat{\varepsilon}$$
+
+        which as mentioned before, it corresponds to a model without intercept or also called deviation form.
+
+- The residuals are not correlated with the predicted value $y_i$.
+
+- The residuals are not correlated with $x_i$.
+
+
+The function `lm` can be used to estimate the parameters of a linear model using ordinary least squares in R, this function can be used as follows:
+
+```R
+model = lm(dependent_variable~independent_variable, data=my_dataset)
+```
+
+In Python using `LinearRegression` from the scikit-learn module:
+
+```python
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(independent_variable, dependent_variable)
+```
+
+To view the estimated parameters in R use the function `summary(model)` or directly in the form `model$coefficients`.
+
+In Python the object `LinearRegression` does not contain a built-in model summary such as in R, however we can still see the coefficients using the method `model.coef_`. Note: There are some workarounds to see the model summary in mode detail using additional modules, you can have a look to this [thread](https://stackoverflow.com/questions/26319259/how-to-get-a-regression-summary-in-scikit-learn-like-r-does). 
+
+TODO: add small numeric example
+
+## Variance analysis
+
+
+## Goodness of fit
+
+
+## Parameter inference
