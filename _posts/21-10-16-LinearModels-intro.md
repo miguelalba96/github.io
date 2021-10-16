@@ -344,7 +344,7 @@ model.fit(independent_variable, dependent_variable)
 
 To view the estimated parameters in R use the function `summary(model)` or directly in the form `model$coefficients`.
 
-In Python the object `LinearRegression` does not contain a built-in model summary such as in R, however we can still see the coefficients using the method `model.coef_`. Note: There are some workarounds to see the model summary in mode detail using additional modules, you can have a look to this [thread](https://stackoverflow.com/questions/26319259/how-to-get-a-regression-summary-in-scikit-learn-like-r-does). 
+In Python the `LinearRegression` object does not contain a built-in model summary as in R, however we can still see the coefficients using the `model.coef_` method. Note: There are some solutions to see the model summary in detail using additional modules, you can have a look to this [thread](https://stackoverflow.com/questions/26319259/how-to-get-a-regression-summary-in-scikit-learn-like-r-does). 
 
 TODO: add small numeric example
 
