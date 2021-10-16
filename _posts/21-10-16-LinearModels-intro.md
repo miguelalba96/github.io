@@ -350,7 +350,7 @@ TODO: add small numeric example
 
 ## Variance analysis
 
-After constructing the parameter estimates, the question to be answered is: Does variable X have a significant effect on Y?
+After constructing the parameter estimates, the question to be answered is: Does variable $X$ have a significant effect on $Y$?
 
 By a statistically significant effect we mean an effect that is large enough to be considered statistically different from zero. In order to give an answer to this question, it is necessary to consider the following hypothesis:
 
@@ -387,9 +387,9 @@ $$F=\frac{\text{explained variance}}{\text{unexplained variance}}=\frac{MSR}{MSE
 
 where $MSR$ refers to the "regression mean square" and $MSE$ is the "mean square error". This statistic follows an $F$ distribution with 1 degree of freedom in the numerator and $n-1$ degrees of freedom in the denominator.
 
-This statistic is the one used to test the hypothesis of statistical significance on $\beta_1$. That is, if for a simple linear regression model, the value calculated for $F$ is greater than the percentile of the $F$ distribution with $(1 ; n-2)$ degrees of freedom for an established error level $\alpha$ then the null hypothesis is rejected and it is concluded that variable $X$ does exert a significant effect on variable $Y$.
+This statistic is the one used to test the hypothesis of statistical significance on $\beta_1$. That is, if for a simple linear regression model, the value calculated for $F$ is greater than the percentile of the $F$ distribution with $(1 ; n-2)$ degrees of freedom for an established error level $\alpha$, then the null hypothesis is rejected and it is concluded that variable $X$ does have a significant effect on variable $Y$.
 
-Or analogously, one can read the p-value as usual, if the p-value is less than $\alpha$, the null hypothesis is rejected and one concludes that the variable $X$ does exert a statistically significant effect on $Y$.
+Or analogously, one can read the p-value as usual, if the p-value is less than $\alpha$, the null hypothesis is rejected and one concludes that the variable $X$ does have a statistically significant effect on $Y$.
 
 TODO: add small numeric example
 
