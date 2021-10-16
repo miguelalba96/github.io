@@ -63,7 +63,7 @@ Regression and correlation present fundamental differences that are worth mentio
 
 Covariance indicates the relationship between two quantitative variables. The covariance between the variable "x" and the variable "y" is denoted and calculated as follows:
 
-$$conv(x,y)=\sigma_{xy}=\mathbb{E}[(X-\mu_x)(Y-\mu_y)]$$
+$$cov(x,y)=\sigma_{xy}=\mathbb{E}[(X-\mu_x)(Y-\mu_y)]$$
 
 *Population covariance
 
@@ -71,7 +71,7 @@ Where $mu_x$ is the population average for the variable $X$, $mu_y$ is the popul
 
 In the case of the sample covariance we have the following term:
 
-$$conv(x,y)=\frac{\sum_{i=1}^{n}{(x_i - \bar{x})(y_i - \bar{y})}}{n}$$
+$$cov(x,y)=\frac{\sum_{i=1}^{n}{(x_i - \bar{x})(y_i - \bar{y})}}{n}$$
 
 where $\bar{x}$ and $\bar{y}$ correspond to the sample average for $x$ and $y$ respectively and $n$ is the number of samples 
 
@@ -116,7 +116,7 @@ where $\sigma_{x}$ and $\sigma_{y}$ are the population variance for $x$ and $y$ 
 
 The sample Pearson's coefficient has the following form:
 
-$$\gamma = \frac{conv(x,y)}{s_x s_y}$$
+$$\gamma = \frac{cov(x,y)}{s_x s_y}$$
 
 where $s_x$ and $s_y$ are the sample variances for $x$ and $y$ respectively. 
 
@@ -350,6 +350,48 @@ TODO: add small numeric example
 
 ## Variance analysis
 
+After constructing the parameter estimates, the question to be answered is: Does variable X have a significant effect on Y?
+
+By a statistically significant effect we mean an effect that is large enough to be considered statistically different from zero. In order to give an answer to this question, it is necessary to consider the following hypothesis:
+
+$$H_0=\beta_1=0$$
+
+$$H_a=\beta_1\neq 0$$
+
+Which can be judged using statistical tests taken from the *analysis of variance table.*
+
+An analysis of variance table divides the variance of $Y$ into two parts:
+
+1. A part related to the contribution of $X$ to $Y$.
+2. A part related to the contribution of the residuals of the model 
+
+Using this table we can understand if the contribution of the variable $X$ is larger than the contribution of the residuals of the model $\varepsilon$.
+
+Visually, an analysis of variance table looks like this:
+
+| Causes of variation | Degrees of freedom | Sum of Squares | Mean Squares | F statistic | P-value |
+|---|---|---|---|---|---|
+| Model | 1 |  |  |  |  |
+| Error (residuals) | n-2 |  |  |  |  |
+| Total | n-1 |  |  |  |  |
+
+The total variability of $Y$ can be expressed as sum between a part explained by the model and a second part associated to the error, this is is represented as follows:
+
+$$\sum_{i=1}^{n}{(y_i - \bar{y})^2} = \sum_{i=1}^{n}{(\hat{y}_i - \bar{y})^2} + \sum_{i=1}^{n}{\varepsilon^2_i}$$
+
+The first part is known as the total sum of squares TSS and the second as the explained sum of squares (sum of squares of the model) plus the sum of squares of the error SSE+SSR.
+
+Following the notations in the table, the mean squares are constructed by dividing each sum of squares by their respective degrees of freedom, while the F-statistic has the form:
+
+$$F=\frac{\text{explained variance}}{\text{unexplained variance}}=\frac{MSR}{MSE}$$
+
+where $MSR$ refers to the "regression mean square" and $MSE$ is the "mean square error". This statistic follows an $F$ distribution with 1 degree of freedom in the numerator and $n-1$ degrees of freedom in the denominator.
+
+This statistic is the one used to test the hypothesis of statistical significance on $\beta_1$. That is, if for a simple linear regression model, the value calculated for $F$ is greater than the percentile of the $F$ distribution with $(1 ; n-2)$ degrees of freedom for an established error level $\alpha$ then the null hypothesis is rejected and it is concluded that variable $X$ does exert a significant effect on variable $Y$.
+
+Or analogously, one can read the p-value as usual, if the p-value is less than $\alpha$, the null hypothesis is rejected and one concludes that the variable $X$ does exert a statistically significant effect on $Y$.
+
+TODO: add small numeric example
 
 ## Goodness of fit
 
