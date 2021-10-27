@@ -4,7 +4,7 @@ icon: fas fa-flask
 order: 2
 ---
 
-These is a description of my work including projects, conferences and papers
+This is a description of my work including projects, conferences and papers
 
 
 # Projects

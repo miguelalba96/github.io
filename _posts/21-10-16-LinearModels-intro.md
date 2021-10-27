@@ -371,9 +371,9 @@ Visually, an analysis of variance table looks like this:
 
 | Causes of variation | Degrees of freedom | Sum of Squares | Mean Squares | F statistic | P-value |
 |---|---|---|---|---|---|
-| Model | 1 |  |  |  |  |
-| Error (residuals) | n-2 |  |  |  |  |
-| Total | n-1 |  |  |  |  |
+| Model | 1 | $SSR$ or $ESS$ | $MSR$ |  |  |
+| Error (residuals) | n-2 | $RSS$ | $MSE$ |  |  |
+| Total | n-1 | $TSS$ |  |  |  |
 
 The total variability of $Y$ can be expressed as sum between a part explained by the model and a second part associated to the error, this is is represented as follows:
 
@@ -395,5 +395,58 @@ TODO: add small numeric example
 
 ## Goodness of fit
 
+We can compute some metrics to evaluate the performance of our model. In the case of *linear regression*, the coefficient of determination or R-Squared (R2) is used as a measure to quantify the variability of $Y$ explained by the model. The higher the coefficient the better the model explains reality.
+
+In the case of *simple* linear regression, it coincides with the square of Pearson's correlation coefficient. 
+
+$$R^2 = \frac{\sigma_{xy}^2}{\sigma_{x}^2 \sigma_{y}^2}$$
+
+
+This coefficient is between 0 and 1.
+
+It can also be written as:
+
+
+$$R^2 = \frac{SSR}{TSS}$$
+
+Where $SSR$ is the "sum of squares due to regression" (also called *explained sum of squares ESS*) and $TSS$ is the "total sum of squares"
+
+The coefficient of determination has the following characteristics:
+
+- $R^2$ values close to 1 will indicate a good fit of the model to the data.
+- In general, $R^2$ values close to 0 will indicate a poor fit of the model to the data. However, this depends on the study, in some statistical and machine learning studies finding $R^2$ values of 1% is common due to the nature of the dependent variable. For example,  this is frequent when the objective is analyzing/predicting human behavior (human behavior is highly unpredictable).    
+
+Example:
+
+Imagine training/fitting a linear regression to detect **brain age** with an $R^2$ of 78%. This means the variability of **brain age** is explained in 78% by the model
+
+In Python to get the $R^2$ we can use `r2_score` from `sklearn.metrics` as follows:
+
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+model = LinearRegression()
+model.fit(X, y) # X are the features/ independent variable(s)
+y_pred = model.predict(X)
+r2_score(y, y_pred)
+```
+
+In R we can simply call `summary(model)$r.squared`
+
 
 ## Parameter inference
+
+To do inference over the parameters of a linear regression we test if the explanatory variable have an effect proportional to the response variable. Thus, we wish to test the following hypotheses:
+
+$$H_0: \beta_0 = 0$$
+
+$$H_a: \beta_0 \neq 0$$
+
+and 
+
+$$H_0: \beta_1 = 0$$
+
+$$H_a: \beta_1 \neq 0$$
+
+<!-- to contrast hypothesis we can also compute sample test statistics: -->
