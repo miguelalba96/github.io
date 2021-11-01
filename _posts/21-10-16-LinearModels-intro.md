@@ -17,7 +17,7 @@ comments    : true
 
  Predictions are based in the intuitive and mathematical relation between what is already known and what is to be estimated. If a practitioner could determinate how what is known today relates to a future event, they could use these insights to help considerably the decision making process of an institute/organization.
 
-Francis Galton coined the term *regression*. In a famous essay, Galton posited that, despite the tendency of tall parents to produce tall children and short parents to produce short children, the average height of the children of parents of a given height tended to shift, or "regress," to the average height of the total population.
+Francis Galton was responsible for the use of the term *regression*. In a famous essay, Galton claimed that, despite the tendency of tall parents to produce tall children and short parents to produce short children, the average height of the children of parents of a given height tended to shift, or "regress," to the average height of the total population.
 
 Regression analysis deals with the study of the dependence of a variable (dependent variable) on one or more variables (explanatory variables) with the objective of estimating or predicting the population mean or average value of the dependent variable.
 
@@ -50,7 +50,7 @@ This is linear relations sometimes are not that common in other datasets, one ex
 
 ![ScatterPlot](/assets/posts/linear_models/scatter_plot.svg)
 
- We can see how there is no visual relation between both variables, maybe a further analysis of both variables could determine if they are at least slightly related!.
+ We can see how there is no visual linear relation between both variables.
 
 
 ### Regression and correlation
@@ -67,7 +67,7 @@ $$cov(x,y)=\sigma_{xy}=\mathbb{E}[(X-\mu_x)(Y-\mu_y)]$$
 
 *Population covariance
 
-Where $mu_x$ is the population average for the variable $X$, $mu_y$ is the population average for the variable $Y$ and $\mathbb{E}$ is a expected value.
+Where $\mu_x$ is the population average for the variable $X$, $\mu_y$ is the population average for the variable $Y$ and $\mathbb{E}$ is a expected value.
 
 In the case of the sample covariance we have the following term:
 
@@ -435,9 +435,50 @@ r2_score(y, y_pred)
 In R we can simply call `summary(model)$r.squared`
 
 
+## Statistical assumptions
+
+There are several statistical assumptions to consider when fitting a simple linear model:
+
+
+- **Linearity**:
+
+    As mentioned previously, there should be a linear existent relation between $X$ and $Y$, so we can create what we call linear regression:
+
+    $$f(x) = \beta_0 + \beta_1 x$$
+
+- **Normality**:
+
+    The residuals of a model follow a normal distribution, this means that for the i-th observation the error is assumed as normally distributed:
+
+    $$\varepsilon_i \sim N(0, \sigma^2)$$
+
+
+- **Homogeneity**:
+
+    The expected value of the residuals is zero,
+
+    $$\mathbb{E}[\varepsilon_i]=0$$
+
+- **Homoscedasticity**
+
+    The variance of the residuals is constant, which means the dispersion of the data should be constant 
+
+    $$VAR(\varepsilon_i) = \sigma^2$$ 
+
+- **Independency**
+
+    the observations should be independent, 
+
+    $$\mathbb{E}[\varepsilon_i \varepsilon_j]=0$$
+
+    This means one observations should **not** give information about the others (This is a missing characteristic in time series data, as past observations are linked to future observations) 
+
 ## Parameter inference
 
-To do inference over the parameters of a linear regression we test if the explanatory variable have an effect proportional to the response variable. Thus, we wish to test the following hypotheses:
+Once we estimate the parameters of a simple linear model we are also interested in having a measure of precision on those estimates to verify whether the calculated values could be the true values for our parameters. This can be done by statistical inference. 
+
+To do so, we can create and test the following statistical hypotheses:
+
 
 $$H_0: \beta_0 = 0$$
 
@@ -449,4 +490,58 @@ $$H_0: \beta_1 = 0$$
 
 $$H_a: \beta_1 \neq 0$$
 
-<!-- to contrast hypothesis we can also compute sample test statistics: -->
+
+Contrasting these hypotheses implies calculating the next test statistic:
+
+$$t=\frac{\hat{\beta}_i}{\sqrt{\hat{VAR}(\hat{\beta}_i)}}$$
+
+This statistic follows a $t$-distribution with $n-2$ degrees of [freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)).  This means that the null hypothesis is rejected at the $\alpha$ level of significance if the absolute value of the statistic is greater than the $\alpha /2$ percentile of the $t$-distribution with $n-2$ degrees of freedom. Or analogously, when the calculated p-value is less than $\alpha$.
+
+But how can we compute this statistic? 
+
+The first thing to know is that both $\beta_0$ and $\beta_1$ are also random variables and both follow a normal distribution since both are produced by linear combinations of normals. To prove this we can rewrite the expressions to compute the estimations as follows:
+
+- For the *slope* parameter:
+
+    $$\hat{\beta}_1 = \frac{\sum{(x_i -\bar{x})(y_i -\bar{y})}}{\sum{(x_i - \bar{x})^2}}=\frac{\sum{(x_i -\bar{x})}Y_i}{\sum{(x_i - \bar{x})^2}}$$
+
+    This last expression is produced using the equivalence:
+
+    $$S_{xy}=\sum{(x_i -\bar{x})(y_i -\bar{y})}=\sum{(x_i -\bar{x})}y_i$$
+
+- For the *intercept* parameter:
+
+    $$\hat{\beta}_0=\bar{Y} - \hat{\beta}_1 \bar{x}$$
+
+
+As both expressions are written in terms of $Y_i$Taking and $Y_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)$, using the properties of **expected value** and **variance**, we can find the normal distributions of both parameters:
+
+
+$$\hat{\beta}_1 \sim N \left(\beta_1, \frac{\sigma^2}{(n-1)S_{xx}} \right)$$
+
+$$\hat{\beta}_0 \sim N\left(\beta_0, \sigma^2 \left( \frac{1}{n} + \frac{\bar{x}^2}{(n-1)S_{xx}}\right) \right)$$
+
+By using these distributions, we can construct confidence intervals for the parameters using the $t$-distribution. These have the following form:
+
+$$CI(\beta_0)=\hat{\beta}_0 \pm t_{\frac{\alpha}{2}, n-2}\sqrt{\hat{VAR}(\hat{\beta}_0)}$$
+
+$$CI(\beta_1)=\hat{\beta}_1 \pm t_{\frac{\alpha}{2}, n-2}\sqrt{\hat{VAR}(\hat{\beta}_1)}$$
+
+Usually this statistics are computed automatically in libraries and modules in `R` and `Python`.
+
+In R using the following lines will give you all sorts of information about the model: 
+
+```R
+model = lm(y~x)
+summary(model)
+```
+
+In `Python` we can compute all statistics by hand after computing the coefficients using `scikit-learn` or simply use the module `statsmodels` as follows:
+
+```python
+import statsmodels.api as sm
+model_results = sm.OLS(y, x).fit()
+print(results.summary())
+```
+
+TODO: (Add example from GaltonFamilies in R to illustrate easier the concepts)

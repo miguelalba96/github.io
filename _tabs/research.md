@@ -28,7 +28,7 @@ This is a study of a new type of optimizer which reuse/eliminate efficiently pre
 
 We found how continual learning regularization penalties such as *Elastic weight Consolidation EWC* could improve the generalization-robustness trade-off produced by the distribution mismatch between adversarial examples and clean data. This means when fine-tuning on adversarial examples adversarial regularization penalties could improve the generalization performance on the clean data lost by standard adversarial training strategies.
 
-*Link: Soon (Consolidating paper and getting distribution permissions)*
+*Link: Soon (Getting distribution permissions)*
 
 ![Adversarial](/assets/img/adversarial_dists.svg)
 
