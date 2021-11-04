@@ -648,7 +648,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 This is a representation of the highlighted table discussed in the [Analysis of Variance](#variance-analysis) section containing all the aforementioned statistics, where in this case the *p-value <0.05* indicates the carat explains the diamond price and it is a necessary explanatory variable in our final model.  
 
-Thw final linear model in this case could be written as follows:
+The final linear model equation could be written as follows:
 
 $$\hat{price} = -2256.36 + 7756.43 (carat)$$
 
