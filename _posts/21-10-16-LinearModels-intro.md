@@ -259,7 +259,7 @@ $$\hat{\varepsilon}=y -\hat{y}$$
 $$\hat{\varepsilon}=y - \hat{\beta}_0 + \hat{\beta}_1 x_i$$
 
 
-These residuals correspond to the vertical distances between the values that did not fit the model and the regression line, in order to identify if the proposed model is good, it is necessary to check if the amount of errors is close to zero computing a the following total distance:
+These residuals correspond to the vertical distances between the values that did not fit the model and the regression line, in order to identify if the proposed model is good, it is necessary to check if the amount of errors is close to zero computing the following total distance:
 
 $$S = \sum_{i=1}^{n}{\hat{\varepsilon}_i}$$
 
@@ -351,7 +351,7 @@ In Python the `LinearRegression` object does not contain a built-in model summar
 
 ## Variance analysis
 
-After constructing the parameter estimates, the question to be answered is: Does variable $X$ have a significant effect on $Y$?
+After constructing the parameter estimates, the question to be answered is: Does the variable $X$ have a significant effect on $Y$?
 
 By a statistically significant effect we mean an effect that is large enough to be considered statistically different from zero. In order to give an answer to this question, it is necessary to consider the following hypothesis:
 
@@ -514,7 +514,7 @@ The first thing to know is that both $\beta_0$ and $\beta_1$ are also random var
     $$\hat{\beta}_0=\bar{Y} - \hat{\beta}_1 \bar{x}$$
 
 
-As both expressions are written in terms of $Y_i$Taking and $Y_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)$, using the properties of **expected value** and **variance**, we can find the normal distributions of both parameters:
+As both expressions are written in terms of $Y_i$, where $Y_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)$, using the properties of **expected value** and **variance**, we can find the normal distributions of both parameters:
 
 
 $$\hat{\beta}_1 \sim N \left(\beta_1, \frac{\sigma^2}{(n-1)S_{xx}} \right)$$
@@ -527,7 +527,7 @@ $$CI(\beta_0)=\hat{\beta}_0 \pm t_{\frac{\alpha}{2}, n-2}\sqrt{\hat{VAR}(\hat{\b
 
 $$CI(\beta_1)=\hat{\beta}_1 \pm t_{\frac{\alpha}{2}, n-2}\sqrt{\hat{VAR}(\hat{\beta}_1)}$$
 
-Usually this statistics are computed automatically in libraries and modules in `R` and `Python`.
+Usually these statistics are computed automatically in libraries and modules in `R` and `Python`.
 
 In R using the following lines will give you all sorts of information about the model: 
 
@@ -555,7 +555,7 @@ I always recommend using R when the task is exclusively based on **statistical d
 
 However, it depends on the preferences and tasks of the practitioner; if you are fitting a linear model and your interest is to generalize over a test set, you may always find it more convenient to use modules such as `scikit-learn`, `Tensorflow` or `PyTorch` in Python.
 
-In this case we will be using the dataset `diamonds` from the [`ggplot2`](https://ggplot2.tidyverse.org/reference/diamonds.html). This dataset a dataset containing the prices and other attributes of almost 54,000 diamonds.
+In this case we will be using the dataset `diamonds` from [`ggplot2`](https://ggplot2.tidyverse.org/reference/diamonds.html). This is a dataset containing the prices and other attributes of almost 54,000 diamonds.
 
 
 This is how we can start loading the data and plotting some interesting descriptive statistics  
@@ -589,7 +589,7 @@ summary(data)
 
 In these statistics we can see a summary of the different characteristics of the 54,000 diamonds in the dataset, including color distribution, average price and carat count. We can then try to find some relationships in the data with scatter plots and correlations.
 
-For this example we are interested in finding the relationship between the price and carat of all diamonds
+For this example we are interested in finding the relationship between the price and carat of all diamonds, we can see from the statistics above that the scales for both variables are different, we can re-confirm this visually with the next scatter plot:
 
 ```R
 # Plot the relationship between carats and price by color 
@@ -597,9 +597,9 @@ ggplot(data, aes(carat, price, color=color)) + geom_point()
 cor(data$carat, data$price)
 ```
 
-![ScatterPlotDiamonds](/assets/posts/linear_models/diamonds_scatter.svg)
+![ScatterPlotDiamonds](/assets/posts/linear_models/diamonds_scatter.png)
 
-We can see the linear trend visually between both attributes, for `price` and `carat` the correlation is 0.9215913 which indicates a strong linear relation and allow us to model the data with linear regression as follows:
+In the plot we can also see the linear trend visually between both attributes, for `price` and `carat` the correlation is 0.9215913 which indicates a strong linear relation, this in the end allows us to model the data with linear regression as follows:
 
 $$price_i = \beta_0 + \beta_1 \cdot carat_i$$
 
@@ -627,11 +627,11 @@ Multiple R-squared:  0.8493,	Adjusted R-squared:  0.8493
 F-statistic: 3.041e+05 on 1 and 53938 DF,  p-value: < 2.2e-16
 ```
 
-We can see in this results the coefficients in the `Estimate` field and the different statistics that we discussed in the previous sections such as the test statistic `t test`.
+We can see in these results the coefficients in the `Estimate` field and the different statistics that we discussed in the previous sections such as the test statistic `t test`.
 
 If we look at the p-values of the parameters associated with the intercept and carat, we can say that both are statistically significant as the *p-value < 0.05*. We can also see how good the goodness of fit of the model is by looking at the $R^2=0.8493$, which means that ~85% of the price variability is explained by the model (In this case is not a great performance, taking into account the characteristics of the dependent variable `price`).
 
-In the case of the interpretation of the coefficients, we see that the intercept does not have a direct interpretation, because when the carat is 0 the price is -2256 dollars, which does not make any sense. However, we can see for the case of the parameter associated with the explanatory variable that as the carat increases by one unit, the price increases by 7756.43 dollars.
+For the interpretation of the coefficients, we see that the intercept does not have a direct interpretation, because when the carat is 0 the price is -2256 dollars, which does not make any sense. However, we can see for the case of the parameter associated with the explanatory variable that as the carat increases by one unit, the price increases by 7756.43 dollars.
 
 We can take a look at the statistical significance of the parameters with the analysis of variance of the model using `anova(model)`. This line will give the following results:
 
@@ -646,10 +646,15 @@ Residuals 53938 1.2935e+11 2.3980e+06
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```
 
-We can see the highlighted table discussed in the [Analysis of Variance](#variance-analysis) section. This table contains all the aforementioned statistics, where in this case the *p-value p<0.05* indicates the carat explains the diamond price and it is a necessary explanatory variable in our final model.  
+This is a representation of the highlighted table discussed in the [Analysis of Variance](#variance-analysis) section containing all the aforementioned statistics, where in this case the *p-value <0.05* indicates the carat explains the diamond price and it is a necessary explanatory variable in our final model.  
 
+Thw final linear model in this case could be written as follows:
 
-We can do some additional analysis on the residuals to verify that our model is working correctly and follows the [statistical assumptions](#statistical-assumptions) we mentioned previously. This is going to be investigated some additional statistical tests and plots in a new another post. 
+$$\hat{price} = -2256.36 + 7756.43 (carat)$$
+
+We can use this equation, replacing carat by a particular amount we want to do some predictions. 
+
+Note that further analysis of this model is required to know if it is good enough to explain the desired relationship. This involves analyzing the residuals to verify that our model works correctly and follows the [statistical assumptions](#statistical-assumptions) we mentioned previously. This is going to be investigated using some additional statistical tests and plots in a new another post. 
 
 
 Cite: 
