@@ -25,28 +25,30 @@ Regression analysis deals with the study of the dependence of a variable (depend
 
 The first step in determining whether a relationship exists between two variables is to examine the graph of the observed (or known) data. This graph, or plot, is called a scatter plot.
 
-A scatter plot can give us two types of information. First, we can visually identify patterns that indicate that the variables are related. If this happens, we can see what kind of line, or estimating equation, describes this relationship. Second, it gives us an indication about the scale of the variables.
+A scatter plot can give us two types of information. First, we can visually identify patterns that indicate that the variables are related. If this happens, we can see what kind of line, or estimated equation, describes this relationship. Second, it gives us an indication about the scale of the variables.
 
-Using R and ggplot the an scatter plot could be visualized as follows:
+Using R and ggplot a scatter plot could be visualized as follows:
 
 ```R
 library(ggplot2)
 ggplot(dataset,aes(first_variable, second_variable, color=categorical_variable)) + geom_point()
 ```
 
-In Python using the module `seaborn`
+In Python using the module `seaborn` and a `pandas` data frame we can plot the scatter plot of two variables as follows:
 
 ```python
-import seaborn 
+import seaborn as sns
+# dataset should be a pd.DataFrame
 sns.scatterplot(data=dataset, x="first_variable", y="second_variable", hue="categorical_variable")
 ```
 
-This results in the following plot for the dataset `mtcars`
+This is an example of a scatter plot for some of the attributes of the dataset `mtcars`, this dataset is composed by fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models), you can see more information [here](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html). 
+
 ![ScatterPlot2](/assets/posts/linear_models/scatter2.svg)
 
 In this case the linear relationship is visible between Miles/(US) gallon (mpg) and Displacement (disp) segregated by the transmission (0: automatic, 1: manual), we can see that if the Miles/gallon increase the displacement of the car decreases. So there is an inverse relation between both variables.
 
-This is linear relations sometimes are not that common in other datasets, one example in the following plot of the Corruption index vs Democracy index segregated by region (data extracted from [gapminder](https://www.gapminder.org/))
+These linear relationships are sometimes not so common in other datasets, an example of this behavior is the following plot of the Corruption vs Democracy index segregated by world region (data extracted from [gapminder](https://www.gapminder.org/))
 
 ![ScatterPlot](/assets/posts/linear_models/scatter_plot.svg)
 
@@ -57,7 +59,7 @@ This is linear relations sometimes are not that common in other datasets, one ex
 
 Correlation analysis is closely related to regression analysis, although conceptually the two are very different. In correlation analysis, the main objective is to measure the strength or degree of linear association between two variables. 
 
-Regression and correlation present fundamental differences that are worth mentioning. In regression analysis there is an asymmetry in the treatment of the dependent and explanatory variables. The dependent variable is assumed to be statistical, random or stochastic, i.e., it has a probability distribution.
+In regression analysis there is a difference in treatment between the two variables studied that begins with their names: dependent and explanatory variables. A dependent variable is assumed to be statistical, random or stochastic, i.e., it has a probability distribution. In the other hand, we can consider initially that a explanatory variable is fixed (the deterministic component of a model). 
 
 ### Covariance 
 
@@ -65,7 +67,7 @@ Covariance indicates the relationship between two quantitative variables. The co
 
 $$cov(x,y)=\sigma_{xy}=\mathbb{E}[(X-\mu_x)(Y-\mu_y)]$$
 
-*Population covariance
+*This is known as the population covariance
 
 Where $\mu_x$ is the population average for the variable $X$, $\mu_y$ is the population average for the variable $Y$ and $\mathbb{E}$ is a expected value.
 
@@ -82,11 +84,11 @@ However, if the covariance between two variables is zero, it indicates that ther
 The covariance as a measure of the relationship between 2 variables has the following properties:
 - It is invariant to changes in the origin of the two variables.
 - Depends on unit changes, changing the unit of measurement of both variables changes the covariance. 
-- An expression for calculating the covariance can be as follows:
+- Calculating the covariance can also be written as follows:
 
     $$S_{xy}=a_{11} - \bar{x}\bar{y}$$
 
-    Where $a_{11}$ has the following forms:
+    Where $a_{11}$ (central mixed moment of order 1,1) has the following forms:
     
     $a_{11}=\frac{1}{N}\sum_{\forall i}{\sum_{\forall j}{x_i y_i n_{ij}}}$, when the observations are aggregated by frequencies
 
@@ -101,12 +103,12 @@ The term correlation is used to denote the existence of a numerical relationship
 
 Magnitude refers to the closeness of the scatter plot data to a straight line. If the points on the graph are very close to a straight line, the correlation is said to be very strong, while if the points are far from a straight line, the correlation is weak.
 
-Correlation is the degree of linear association between two quantitative variables. If two variables are linearly related, it indicates that a change in the value of one of them will generate a change in the other. To measure the association strength that exists between two variables the Pearson's coefficient is the most commonly used.
+Correlation is the degree of linear association between two quantitative variables. If two variables are linearly related, it indicates that a change in the value of one of them will generate a change in the other. To measure the association strength that exists between two variables the Pearson's coefficient is the most commonly used statistic.
 
 The direction of the linear relationship between the two variables analyzed can be of two types:
 
 1. <u>Direct or positive relationship</u>: When as one variable increases, the other variable also increases. 
-2. <u>Inverse or negative relationship</u>: When one variable increases and the other variable decreases. Example: This case occurs when analyzing the nominal value of vehicles and the years of use they have, since the more years of use a vehicle has, the lower its nominal value will be.
+2. <u>Inverse or negative relationship</u>: When one variable increases and the other variable decreases. Example: This is the case when analyzing the nominal value of standard vehicles and their years of use; the more years of use, the lower the nominal value.
 
 The correlation calculated using Pearson's coefficient estimated from the data has the following form:
 
@@ -120,7 +122,7 @@ $$\gamma = \frac{cov(x,y)}{s_x s_y}$$
 
 where $s_x$ and $s_y$ are the sample variances for $x$ and $y$ respectively. 
 
-Writing the last expression in a more specific way could lead to the following term:
+If the last expression is written in more detail, it has the following form:
 
 $$r_{xy}=\frac{\sum_{i=1}^{n}{w_i(x_i-\bar{x})(y_i-\bar{y})}}{S_X S_Y (\sum{w_i} - 1)}$$
 
@@ -145,7 +147,7 @@ By viewing a scatter plot and calculating the correlation coefficient, the follo
 
 - If the coefficient is closer to zero and the scatter plot shows strange shapes, this indicates a clear nonlinear behavior between the variables and it is necessary to use other types of measures to obtain this relationship or transformations in the models.
 
-In R we can compute the correlation between a group of variables using `cor(data)`, for the `mtcars` example the correlation between `mpg` and `disp` is -0.84755, this is a final indication that both variables have an inverse relation.
+In R we can compute the correlation between a group of variables using `cor(data)`, for the `mtcars` example the correlation between `mpg` and `disp` is -0.84755, this is a final indication that both variables have an inverse relation. In Python we can use `numpy.corrcoef(data_array)`. 
 
 ### Regression Analysis
 
@@ -153,12 +155,12 @@ If the dependence of a variable with respect to a single explanatory variable is
 
 At first glance we can see from a scatter plot if indeed two variables are related, as a result, we can draw, or "fit" a straight line through our scatter plot to represent the relationship.
 
-When a line is drawn through the points of a scatter plot we are able to identify the degree of association between the variables. The line drawn through the points represents a direct relationship, because Y increases as X increases. If the points are relatively close to this line, we can say that there is a high degree of association between the variable X and the variable Y. 
+When a line is drawn through the points of a scatter plot we are able to identify the degree of association between the variables. The line drawn through the points represents a direct relationship, because $Y$ increases as $X$ increases. If the points are relatively close to this line, we can say that there is a high degree of association between the variable $X$ and the variable $Y$. 
 
 For using and calculating simple linear regression models, the following aspects should be taken into account:
 
-- Variable Y is known as the *response/dependent* variable, this is the variable of interest that was chosen. 
-- Variable X is known as the *explanatory/independent* variable and this is the one that will attempt to have a direct relationship with the *response/dependent* variable.
+- Variable $Y$ is known as the *response/dependent* variable, this is the variable of interest that was chosen. 
+- Variable $X$ is known as the *explanatory/independent* variable and this is the one that will attempt to have a direct relationship with the *response/dependent* variable.
 
 - Both the *response/dependent* variable $Y$ and the *explanatory/independent* variable $X$ need to be highly correlated in order to expect a good scatter plot showing the linear relationship, if this does not occur there is probably another type of non-linear dependencies not considered by the proposed model. 
 
@@ -170,7 +172,7 @@ To understand regression models we must go to the simplest step in which there i
 
 $$y=\beta x + \varepsilon$$
 
-Where $y$ is the dependent variable, $x$ the independent variable, $\beta$ its associated slope or parameter and $\varepsilon$ the errors of the model which allow to evidence the exactitude with which the model fits the data.
+Where $y$ is an associated term to the dependent variable, $x$ for the independent variable, $\beta$ its associated slope or parameter and $\varepsilon$ the errors of the model which allow to evidence the exactitude with which the model fits the data.
 
 A model can also be expressed as a *predictive function* as follows:
 
@@ -209,11 +211,11 @@ y_{n}
 \varepsilon _{n}
 \end{bmatrix}$$
 
-We use the symbol "hat" (ex. $\hat{y}$) to represent the individual values of the estimated points, i.e., those points that are on the estimation line.
+We use the symbol "hat" (ex. $\hat{y}$) to represent the individual values of the estimated points, i.e., those points that are on the estimated line.
 
 #### Variables linearity
 
-linearity refers to the point at which the conditional expectation of $Y$ is a linear function of $X_i$ in a population model. Geometrically, the regression curve in this case is a straight line. In this interpretation, a regression function such as $\mathbb{E}[Y \| X_i] = \beta_0 + \beta_1 x^2_i$ is not a linear function because the variable $x$ is squared.
+Linearity refers to the point at which the conditional expectation of $Y$ is a linear function of $X_i$ in a population model. Geometrically, the regression curve in this case is a straight line. In this interpretation, a regression function such as $\mathbb{E}[Y \| X_i] = \beta_0 + \beta_1 x^2_i$ is not a linear function because the variable $x$ is squared.
 
 #### Parameters linearity
 
@@ -346,7 +348,6 @@ To view the estimated parameters in R use the function `summary(model)` or direc
 
 In Python the `LinearRegression` object does not contain a built-in model summary as in R, however we can still see the coefficients using the `model.coef_` method. Note: There are some solutions to see the model summary in detail using additional modules, you can have a look to this [thread](https://stackoverflow.com/questions/26319259/how-to-get-a-regression-summary-in-scikit-learn-like-r-does). 
 
-TODO: add small numeric example
 
 ## Variance analysis
 
@@ -391,7 +392,6 @@ This statistic is the one used to test the hypothesis of statistical significanc
 
 Or analogously, one can read the p-value as usual, if the p-value is less than $\alpha$, the null hypothesis is rejected and one concludes that the variable $X$ does have a statistically significant effect on $Y$.
 
-TODO: add small numeric example
 
 ## Goodness of fit
 
@@ -544,4 +544,121 @@ model_results = sm.OLS(y, x).fit()
 print(results.summary())
 ```
 
-TODO: (Add example from GaltonFamilies in R to illustrate easier the concepts)
+
+## Practical example 
+
+After all of this dense mathematical introduction, let me show an example. 
+
+In this case I am going to use R exclusively, since it is more convenient for this case in which we are trying to understand statistical concepts.
+
+I always recommend using R when the task is exclusively based on **statistical data analysis** and using Python for **machine learning** tasks. This is because R offers a variety of built-in statistical methods that are quite useful when working with linear models or statistical tests.
+
+However, it depends on the preferences and tasks of the practitioner; if you are fitting a linear model and your interest is to generalize over a test set, you may always find it more convenient to use modules such as `scikit-learn`, `Tensorflow` or `PyTorch` in Python.
+
+In this case we will be using the dataset `diamonds` from the [`ggplot2`](https://ggplot2.tidyverse.org/reference/diamonds.html). This dataset a dataset containing the prices and other attributes of almost 54,000 diamonds.
+
+
+This is how we can start loading the data and plotting some interesting descriptive statistics  
+
+```R
+# It is a good coding practice to import your libraries on the top of the code!
+library(ggplot2)
+
+# Load the data and generate a descriptive statistics summary
+data = as.data.frame(diamonds)
+summary(data)
+```
+
+```Output
+     carat               cut        color        clarity          depth           table           price             x         
+ Min.   :0.2000   Fair     : 1610   D: 6775   SI1    :13065   Min.   :43.00   Min.   :43.00   Min.   :  326   Min.   : 0.000  
+ 1st Qu.:0.4000   Good     : 4906   E: 9797   VS2    :12258   1st Qu.:61.00   1st Qu.:56.00   1st Qu.:  950   1st Qu.: 4.710  
+ Median :0.7000   Very Good:12082   F: 9542   SI2    : 9194   Median :61.80   Median :57.00   Median : 2401   Median : 5.700  
+ Mean   :0.7979   Premium  :13791   G:11292   VS1    : 8171   Mean   :61.75   Mean   :57.46   Mean   : 3933   Mean   : 5.731  
+ 3rd Qu.:1.0400   Ideal    :21551   H: 8304   VVS2   : 5066   3rd Qu.:62.50   3rd Qu.:59.00   3rd Qu.: 5324   3rd Qu.: 6.540  
+ Max.   :5.0100                     I: 5422   VVS1   : 3655   Max.   :79.00   Max.   :95.00   Max.   :18823   Max.   :10.740  
+                                    J: 2808   (Other): 2531                                                                   
+       y                z         
+ Min.   : 0.000   Min.   : 0.000  
+ 1st Qu.: 4.720   1st Qu.: 2.910  
+ Median : 5.710   Median : 3.530  
+ Mean   : 5.735   Mean   : 3.539  
+ 3rd Qu.: 6.540   3rd Qu.: 4.040  
+ Max.   :58.900   Max.   :31.800     
+```
+
+In these statistics we can see a summary of the different characteristics of the 54,000 diamonds in the dataset, including color distribution, average price and carat count. We can then try to find some relationships in the data with scatter plots and correlations.
+
+For this example we are interested in finding the relationship between the price and carat of all diamonds
+
+```R
+# Plot the relationship between carats and price by color 
+ggplot(data, aes(carat, price, color=color)) + geom_point()
+cor(data$carat, data$price)
+```
+
+![ScatterPlotDiamonds](/assets/posts/linear_models/diamonds_scatter.svg)
+
+We can see the linear trend visually between both attributes, for `price` and `carat` the correlation is 0.9215913 which indicates a strong linear relation and allow us to model the data with linear regression as follows:
+
+$$price_i = \beta_0 + \beta_1 \cdot carat_i$$
+
+```R
+model = lm(price~carat, data = data)
+summary(model)
+```
+```output
+Call:
+lm(formula = price ~ carat, data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-18585.3   -804.8    -18.9    537.4  12731.7 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -2256.36      13.06  -172.8   <2e-16 ***
+carat        7756.43      14.07   551.4   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1549 on 53938 degrees of freedom
+Multiple R-squared:  0.8493,	Adjusted R-squared:  0.8493 
+F-statistic: 3.041e+05 on 1 and 53938 DF,  p-value: < 2.2e-16
+```
+
+We can see in this results the coefficients in the `Estimate` field and the different statistics that we discussed in the previous sections such as the test statistic `t test`.
+
+If we look at the p-values of the parameters associated with the intercept and carat, we can say that both are statistically significant as the *p-value < 0.05*. We can also see how good the goodness of fit of the model is by looking at the $R^2=0.8493$, which means that ~85% of the price variability is explained by the model (In this case is not a great performance, taking into account the characteristics of the dependent variable `price`).
+
+In the case of the interpretation of the coefficients, we see that the intercept does not have a direct interpretation, because when the carat is 0 the price is -2256 dollars, which does not make any sense. However, we can see for the case of the parameter associated with the explanatory variable that as the carat increases by one unit, the price increases by 7756.43 dollars.
+
+We can take a look at the statistical significance of the parameters with the analysis of variance of the model using `anova(model)`. This line will give the following results:
+
+```output
+Analysis of Variance Table
+
+Response: price
+             Df     Sum Sq    Mean Sq F value    Pr(>F)    
+carat         1 7.2913e+11 7.2913e+11  304051 < 2.2e-16 ***
+Residuals 53938 1.2935e+11 2.3980e+06                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+
+We can see the highlighted table discussed in the [Analysis of Variance](#variance-analysis) section. This table contains all the aforementioned statistics, where in this case the *p-value p<0.05* indicates the carat explains the diamond price and it is a necessary explanatory variable in our final model.  
+
+
+We can do some additional analysis on the residuals to verify that our model is working correctly and follows the [statistical assumptions](#statistical-assumptions) we mentioned previously. This is going to be investigated some additional statistical tests and plots in a new another post. 
+
+
+Cite: 
+```bibtex
+@misc{LinearModels101Intro,
+  author = {Miguel A. Alba},
+  title = {Linear models 101! - Introduction: Simple Linear Regression},
+  year = 2021,
+  url = {https://miguelalba96.github.io/posts/LinearModels-intro},
+  urldate = {2021-10-14}
+}
+```
