@@ -652,7 +652,7 @@ Thw final linear model in this case could be written as follows:
 
 $$\hat{price} = -2256.36 + 7756.43 (carat)$$
 
-We can use this equation, replacing carat by a particular amount we want to do some predictions. 
+We can use this equation by substituting carat for a given quantity to make some predictions. 
 
 Note that further analysis of this model is required to know if it is good enough to explain the desired relationship. This involves analyzing the residuals to verify that our model works correctly and follows the [statistical assumptions](#statistical-assumptions) we mentioned previously. This is going to be investigated using some additional statistical tests and plots in a new another post. 
 
