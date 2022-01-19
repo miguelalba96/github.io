@@ -3,7 +3,7 @@ title       : How to build deep neural networks using Tensorflow low level API (
 author      : Miguel Alba                             # Author Name
 date        : 2021-11-28 16:00:00 -0400  # Date
 categories  : [Machine Learning, Tensorflow] # Catagories, no more than 2
-tags        : [deep neural networks, Tensorflow, Python, Machine learning]            # Tags, any number
+tags        : [Deep neural networks, Tensorflow, Python, Machine learning]            # Tags, any number
 pin         : false                       # Should this post be pinned?
 toc         : true                        # Table of Contents?
 math        : true                        # Does this post contain math?
@@ -15,12 +15,12 @@ image:
 
 ## Introduction
 
-Back in the time before Google's Tensorflow 2.0 release (mid 2019), building and training models in Tensorflow 1.x required a bit of practice and time to understand the workflow of their core APIs to define, train and deploying deep neural networks. Most of the time it required defining **static graphs** and making use of `tf.Session` to train and perform inference. This made debugging large models extremely complicated, and made learning TF quite frustrating for people new to deep learning.
+In the era before Google's Tensorflow 2.0 release (mid-2019), building and training models in Tensorflow 1.x required a bit of practice and time to understand the workflow of their core APIs. If you wanted to define, train and evaluate deep neural networks, most of the time you it required to create **static graphs** and use `tf.Session`'s to feed data to train models and perform inference. This made debugging large models extremely complicated, and made learning TF quite frustrating for people new to deep learning.
 
 
-Since Tensorflow 2.0 there are two types of APIs used to build and train deep neural networks. The first and most known is `tf.keras` which contains a high amount of tutorials and documentation available across the internet (including the official tensorflow [documentation](https://www.tensorflow.org/api_docs/python/tf/keras)), but what if we don't want to rely on `tf.keras` development to build and train deep neural networks, but make our own layers/models with native Tensorflow code.
+Since Tensorflow 2.0 there are two types of APIs used to build and train deep neural networks. The first and most known is `tf.keras` which contains a high amount of tutorials and documentation available across the internet (the most known is the official tensorflow [documentation](https://www.tensorflow.org/api_docs/python/tf/keras)), but what if we don't want to rely on `tf.keras` development to build and train deep neural networks, but make our own layers/models with native Tensorflow code?
 
-This post explains in detail how to define and build layers and models using Tensorflow's low level API. 
+This post explains in detail how to define, build and call layers and models using Tensorflow's low level API. 
 
 ## Base Neural Networks Class (tf.Module)
 

@@ -7,8 +7,6 @@ order: 2
 This is a description of my work including projects, conferences and papers
 
 
-# Projects
-
 ## On sparsity and elastic consolidated penalties for parameter efficient transfer learning
 
 ### Machine Learning in Clinical Neuroimaging - Charité – Universitätsmedizin Berlin - Department of Psychiatry and Neurosciences

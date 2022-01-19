@@ -40,9 +40,10 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 
 # Experience
 
-## Deep Learning working student
+## Machine Learning engineer 
 
 *Asaphus Vision GmbH, Berlin, Germany* (12.2018-Present)
+
 - Machine learning research and development for driving monitoring systems
 - Convolutional Neural Networks (CNNs) for facial expression recognition, seatbelt detection, smoking detection (Multi-task learning)
 - Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near Infrared)
