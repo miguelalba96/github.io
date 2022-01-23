@@ -30,7 +30,7 @@ We found how continual learning regularization penalties such as *Elastic weight
 
 ![Adversarial](/assets/img/adversarial_dists.svg)
 
-## Enhanced Unsupervised-unpaired image to image translation for facial photo editing)
+## Enhanced Unsupervised-unpaired image to image translation for facial photo editing
 
 ### Research internship - Universität Potsdam/Asaphus Vision GmbH
 

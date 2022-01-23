@@ -92,7 +92,7 @@ For this example and as a complement to the recent update of the official docume
             return x
     ```
 
-3. We can test if the layer implementation is working by calling it and getting its variables:
+3. We can test if the layer implementation is working correctly by calling it and getting its variables (the weight's tensors):
 
     ```python
     # create fake image
@@ -148,13 +148,141 @@ For this example and as a complement to the recent update of the official docume
         dtype=float32)>)
 
     ```
+    Have a look on how the name of the weights maintain an order of **"name_of_layer/name_of_weight"**. 
+    
+    We can also check the size of the output tensor:
+    ```python
+    # shapes of the output 
+    y.get_shape()
+    ```
+    ```
+    TensorShape([1, 128, 128, 4])
+    ```
 
 
 ### Create a model
 
+Once the layers are defined with `tf.Module` we can write a complete model. In this case a CNN. To do this, we first have to define a couple of extra standard operations used in this type of models, e.g. max-pooling, linear/dense layers, etc.
+
+First we start with max pool (quite similar to what can be expected in tensorflow 1.x but without the name scoping):
+
+```python
+def max_pool2d(x, size=2, stride=None, padding='VALID', name=None):
+    """
+    Common max-pooling 2D layer
+    """
+    # Here we are not explicitly paddding the input as in the Conv2D
+    stride = stride or size # if no stride is given use the pool size
+    x = tf.nn.max_pool2d(x,
+                         ksize=[1, size, size, 1],
+                         strides=[1, stride, stride, 1],
+                         padding=padding, 
+                         name=name)
+    return x
+```
+
+Then we can refine a bit the `Dense` layer of the TF [documentation](https://www.tensorflow.org/api_docs/python/tf/Module) with the tweaks from the `Conv2D` layer previously defined as follows:
+
+```python
+class Dense(tf.Module):
+    def __init__(self, num_outputs, act_type=None, name=None):
+        super(Dense, self).__init__(name=name)
+        self.num_outs = num_outputs
+        self.act_type = act_type
+  
+    def build(self, input_shape):
+        if not hasattr(self, 'weights'):
+            self.weights = weights('weights', shape=(input_shape[-1], self.num_outs))
+        if not hasattr(self, 'bias'):
+            self.bias = bias('bias', shape=(self.num_outs))
+
+    @tf.Module.with_name_scope
+    def __call__(self, inputs):
+        # build weights first call
+        self.build(inputs.get_shape())
+
+        # linear operation 
+        x = tf.matmul(inputs, self.weights) + self.bias
+
+        # activations 
+        if self.act_type == 'ReLU':
+            return tf.nn.relu(x)
+        elif self.act_type == 'Sigmoid':
+            return tf.nn.sigmoid(x)
+        else:
+            return x
+```
+
+Then we write the final model (using again `tf.Module`):
+
+```python
+class CNN(tf.Module):
+    def __init__(self, name=None):
+        super(CNN, self).__init__(name=name)
+        with self.name_scope:
+            self.conv1 = Conv2D(8, name='C64')
+            self.conv2 = Conv2D(16,name='C64')
+            self.conv3 = Conv2D(32,name='C64')
+            self.conv4 = Conv2D(64,name='C64')
+            self.out = Dense(1, name='output', act_type='Sigmoid') 
+
+    @tf.Module.with_name_scope
+    def __call__(self, input):
+        x = self.conv1(input)
+        x = max_pool2d(x)
+        x = self.conv2(x)
+        x = max_pool2d(x)
+        x = self.conv3(x)
+        x = max_pool2d(x)
+        x = self.conv4(x)
+        x = tf.reshape(x, [tf.shape(x)[0], -1]) # flatten op
+        output = self.out(x)
+        return output
+```
+In this case the model has 4 conv layers for downsampling and 1 final fully connected layer associated to binary output (note the sigmoid activation). 
+
+We can test this model by simply passing an image and checking the model's output:
+
+```python
+# Test the CNN
+fake_image = tf.random.uniform((1, 128, 128, 3), dtype=tf.float32) 
+net = CNN(name='simple_model')
+output = net(x)
+print(output) # probability
+```
+```
+tf.Tensor([[0.50065225]], shape=(1, 1), dtype=float32)
+```
+
+In order to check the correctness of the name scoping we can always print how some variables may look like when debugging. For example, here I want to check if my last layer follows the appropriate hierarchy (model/layer/name_of_the_weight):
+```python
+output_variables = [var for var in net.trainable_variables if 'output' in var.name]
+print(output_variables)
+```
+```
+[<tf.Variable 'simple_model/output/bias:0' shape=(1,) dtype=float32, numpy=array([0.], dtype=float32)>,
+ <tf.Variable 'simple_model/output/weights:0' shape=(16384, 1) dtype=float32, numpy=
+ array([[ 0.03065354],
+        [ 0.0149726 ],
+        [-0.02742667],
+        ...,
+        [-0.01549608],
+        [ 0.01788269],
+        [ 0.05695942]], dtype=float32)>]
+```
+
+We finally have a model!. 
 
 ## Further steps
 
+Once the final model is designed we can create a custom training pipeline. This involves using a loop as in PyTorch where we perform training and validation steps.
+
+To write a custom training step we can use `tf.GradientTape` and decorate its function with `@tf.function` to speed up its computation. This tutorial in the official [Tensorflow documentation](https://www.tensorflow.org/guide/keras/writing_a_training_loop_from_scratch) shows pretty well how the low level training/validation loop logic works. The main difference in this case would be using the model we defined above instead of `tf.keras.Model`.
+
+Additional steps might imply writing a summary to log the training metrics in Tensorboard (using `tf.summary.create_file_writer`) and save checkpoints with the help of a checkpoint manager (`tf.train.Checkpoint` and `tf.train.CheckpointManager`). I will create another blog post showing their usage when writing low level TF pipelines.
+
+For now, this link is sample showing an interesting custom training pipeline that mixes these concepts (summaries and checkpoints) in some models written with `tf.keras.Model` for retina damage detection in OCT scans: [Link](https://github.com/miguelalba96/OCT_project) 
 
 This is a link to the Google Colab to run all the code from this post:
 [Link](https://colab.research.google.com/drive/18KOzhewyqBGAw_zNWfKWW1IA85qecn1c?usp=sharing)
+

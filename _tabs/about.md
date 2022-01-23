@@ -10,7 +10,7 @@ order: 1
 {% include iconcomp.html %}
 
 
-# I am always backpropagating
+# Always learning
 
 I am a Machine Learning Research Scientist and Statistician, currently working as a ML engineer for image processing in the automotive industry. 
 
@@ -49,7 +49,7 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 - Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near Infrared)
 - Model compression and efficient inference (model optimization, sparse and quantized deep neural networks)
 - Machine learning Interpretability - (Explainable AI) and statistics to improve data acquisition processes
-- Adversarial Machine learning (Attacks, Defenses and Robustness of deep neural networks)
+- Adversarial machine learning (deep neural networks robustness)
 
 
 ## Research Assistant Scientist and Researcher
