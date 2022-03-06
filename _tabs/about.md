@@ -45,12 +45,11 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 *Asaphus Vision GmbH, Berlin, Germany* (12.2018-Present)
 
 - Machine learning research and development for driving monitoring systems
-- Convolutional Neural Networks (CNNs) for facial expression recognition, seatbelt detection, smoking detection (Multi-task learning)
-- Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near Infrared)
-- Model compression and efficient inference (model optimization, sparse and quantized deep neural networks)
-- Machine learning Interpretability - (Explainable AI) and statistics to improve data acquisition processes
-- Adversarial machine learning (deep neural networks robustness)
-
+- Implement end-to-end Convolutional Neural Networks (CNNs) pipelines for facial expression recognition, seatbelt detection, smoking detection (Multi-task learning)
+- Model compression and efficient inference (model optimization, sparse and quantized deep neural networks, statistics to determine quantization loss in precision)
+- Maintaining and improving MLOps tools (ex. Tensorflow pipe lines for facial recognition and face detection, creating tools for deep learning framework exchange formats, TF custom layers, etc.)
+- Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near-Infrared NIR)
+- Machine learning Interpretability - Explainable AI  
 
 ## Research Assistant Scientist and Researcher
 
@@ -116,13 +115,16 @@ Deep Learning
 
 <span class="iconify-inline" data-icon="bx-bx-stats"></span> SAS/SPSS
 
-<span class="iconify-inline" data-icon="vscode-icons:file-type-excel"></span> Excel
-
 <span class="iconify-inline" data-icon="logos-git-icon"></span> Git and SVN
 
-<span class="iconify-inline" data-icon="logos-tableau-icon"></span> Tableau
+<span class="iconify-inline" data-icon="emojione:robot-face"></span> SNPE and TIDL (Deep learning 
+runtimes)
 
 <span class="iconify-inline" data-icon="logos-bash-icon"></span> Bash
+
+<span class="iconify-inline" data-icon="vscode-icons:file-type-excel"></span> Excel
+
+<span class="iconify-inline" data-icon="logos-tableau-icon"></span> Tableau
 
 <span class="iconify-inline" data-icon="ri-stock-fill"></span> Bloomberg
 

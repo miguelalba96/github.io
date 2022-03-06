@@ -15,7 +15,7 @@ image:
 
 ## Introduction
 
-In the era before Google's Tensorflow 2.0 release (mid-2019), building and training models in Tensorflow 1.x required a bit of practice and time to understand the workflow of their core APIs. If you wanted to define, train and evaluate deep neural networks, most of the time you it required to create **static graphs** and use `tf.Session`'s to feed data to train models and perform inference. This made debugging large models extremely complicated, and made learning TF quite frustrating for people new to deep learning.
+In the era before Google's Tensorflow 2.0 release (mid-2019), working in Tensorflow 1.x required a bit of practice and time to understand the workflow of their core APIs. If you wanted to define, train and evaluate deep neural networks, you were required to create **static graphs** and use `tf.Session`'s for pretty much everything. This made debugging large machine learning extremely complicated and inefficient, decreasing the enthusiasm of new deep learning practitioners to learn TF, which in the end made users migrate to more friendly or pythonic options such as Keras or PyTorch.
 
 
 Since Tensorflow 2.0 there are two types of APIs used to build and train deep neural networks. The first and most known is `tf.keras` which contains a high amount of tutorials and documentation available across the internet (the most known is the official tensorflow [documentation](https://www.tensorflow.org/api_docs/python/tf/keras)), but what if we don't want to rely on `tf.keras` development to build and train deep neural networks, but make our own layers/models with native Tensorflow code?

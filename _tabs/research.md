@@ -11,7 +11,7 @@ This is a description of my work including projects, conferences and papers
 
 ### Machine Learning in Clinical Neuroimaging - Charité – Universitätsmedizin Berlin - Department of Psychiatry and Neurosciences
 
-This is a study of a new type of optimizer which reuse/eliminate efficiently pre-trained information transfer during fine-tuning, decreasing potential sources of overparameterization caused by fitting large deep neural networks in small datasets. We also studied the effects of removing parameter redundancy and information preservation in transfer learning settings.
+This is a study of a new type of optimizer which reuse/eliminate efficiently pre-trained information transfer when fine-tuning deep neural networks, decreasing potential sources of overparameterization caused by fitting large models in small datasets. We also studied the effects of removing parameter redundancy and information preservation (Avoid catastrophic forgetting) in transfer learning settings.
 
 **This was my master's thesis.**
 *Link: Soon (Consolidating paper and getting distribution permissions)*
@@ -24,7 +24,7 @@ This is a study of a new type of optimizer which reuse/eliminate efficiently pre
 
 ### Research - Universität Potsdam
 
-We found how continual learning regularization penalties such as *Elastic weight Consolidation EWC* could improve the generalization-robustness trade-off produced by the distribution mismatch between adversarial examples and clean data. This means when fine-tuning on adversarial examples adversarial regularization penalties could improve the generalization performance on the clean data lost by standard adversarial training strategies.
+We found how continual learning regularization penalties such as *Elastic weight Consolidation EWC* could improve the generalization-robustness trade-off produced by the distribution mismatch between adversarial examples and clean data. This means when fine-tuning on adversarial examples continual learning regularization penalties could improve the generalization performance on the clean data lost by standard adversarial training strategies.
 
 *Link: Soon (Getting distribution permissions)*
 
