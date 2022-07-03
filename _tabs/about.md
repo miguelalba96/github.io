@@ -47,7 +47,7 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 - Machine learning research and development for driving monitoring systems
 - Implement end-to-end Convolutional Neural Networks (CNNs) pipelines for facial expression recognition, seatbelt detection, smoking detection (Multi-task learning)
 - Model compression and efficient inference (model optimization, sparse and quantized deep neural networks, statistics to determine quantization loss in precision)
-- Maintaining and improving MLOps tools (ex. Tensorflow pipe lines for facial recognition and face detection, creating tools for deep learning framework exchange formats, TF custom layers, etc.)
+- Maintaining and improving ML strategies (ex. Tensorflow pipelines for facial recognition and face detection, creating tools for deep learning framework exchange formats, TF custom layers, etc.)
 - Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near-Infrared NIR)
 - Machine learning Interpretability - Explainable AI  
 
