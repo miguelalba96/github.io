@@ -20,7 +20,7 @@ timezone: Europe/Berlin
 
 title: Miguel Alba                         # the main title
 
-tagline: Posts on machine learning, Statistics and general purpose data science
+tagline: Posts on ML, Stats and general purpose data science
    # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed

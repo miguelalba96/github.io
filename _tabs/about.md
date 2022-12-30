@@ -10,33 +10,15 @@ order: 1
 {% include iconcomp.html %}
 
 
-# Always learning
-
 I am a Machine Learning Research Scientist and Statistician, currently working as a ML engineer for image processing in the automotive industry. 
 
 My background is in pure *Statistics* and *Data Science*. My areas of interest in ML are related to R&D of new optimization/learning strategies in domains such as computer vision, time series prediction, NLP and advanced predictive modeling.
 
-I have had the opportunity to research and develop new techniques and solutions in several ML areas, some of my investigations and work involve improving methods and paradigms such as transfer learning, multi task models, deep adversarial robustness, generative models, deep neural networks compression and continual learning.
+I have had the opportunity to work on different machine learning problems in industry and research, where my main focus has been developing and productionalizing deep learning models, specially in computer vision.
 
-In statistics, I am currently researching methods and applications related to time series prediction, Bayesian inference, continuous dependence modeling (copula theory) and sampling strategies.
+If you are interested in doing research with me. In ML I am interested different paradigms such as transfer learning, multi task models, deep adversarial robustness, generative models, deep neural networks compression and continual learning. In statistics, I am currently researching methods and applications related to time series prediction, Bayesian inference, continuous dependence modeling (copula theory) and sampling strategies.
 
-I am open to all types of problems that involve finding and analyzing complex patterns hidden in the data.
-
-# Education 
-
-### M.Sc. Data Science
-
-*Universität Potsdam, Potsdam, Germany*
-
-I focused my work and research on using Deep Learning to solve different problems in image classification/generation, reinforcement learning, time series prediction with NLP and signal processing. I have spent most of my time working on developing and studying methods in multi-task learning, GANs, catastrophic forgetting in deep models, transfer learning, adversarial examples and defenses and Machine learning interpretability.
-
-
-### B.Sc Statistics
-
-*Universidad Santo Tomás, Bogota, Colombia*
-
-I centered my research interest on stochastic processes, Bayesian statistics, continuous dependence models (Copulas), multivariate time series analysis and sampling strategies. I also learned traditional Machine Learning methods and analytics.
-
+However, I am open to all types of problems that involve finding and analyzing complex patterns hidden in data.
 
 # Experience
 
@@ -44,14 +26,15 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 
 *Asaphus Vision GmbH, Berlin, Germany* (12.2018-Present)
 
-- Machine learning research and development for driving monitoring systems
-- Implement end-to-end Convolutional Neural Networks (CNNs) pipelines for facial expression recognition, seatbelt detection, smoking detection (Multi-task learning)
+- R&D Deep learning
+- Machine learning Operations (MLOps)
+- Implement end-to-end ML Convolutional Neural Networks (CNNs) pipelines for facial expression recognition, seatbelt detection, eye Blinks detection (Semantic segmentation)
 - Model compression and efficient inference (model optimization, sparse and quantized deep neural networks, statistics to determine quantization loss in precision)
-- Maintaining and improving MLOps tools (ex. Tensorflow pipe lines for facial recognition and face detection, creating tools for deep learning framework exchange formats, TF custom layers, etc.)
+- Improving and maintaining ML pipelines (ex. Tensorflow pipelines for facial recognition and face detection, creating tools for deep learning framework exchange formats, TF custom layers, etc.)
 - Neural preprocessing and augmentation: Image translation (Generative Adversarial Networks and Neural Style Transfer) to simulate lighting conditions, transform image styles (RGB to Near-Infrared NIR)
 - Machine learning Interpretability - Explainable AI  
 
-## Research Assistant Scientist and Researcher
+## Research Assistant Scientist
 
 *Universidad Santo Tomás, Bogota, Colombia* (07.2015-12.2018)
 - Research in statistics (Main areas Time series prediction and Bayesian inference)
@@ -70,13 +53,29 @@ I centered my research interest on stochastic processes, Bayesian statistics, co
 - Statistical advisor for PhD theses in social sciences and administration
 
 
+# Education 
+
+### M.Sc. Data Science
+
+*Universität Potsdam, Potsdam, Germany*
+
+I focused my work and research on using Deep Learning to solve different problems in image classification/generation, reinforcement learning, time series prediction with NLP and signal processing. I have spent most of my time working on developing and studying methods in multi-task learning, GANs, catastrophic forgetting in deep models, transfer learning, adversarial examples and defenses and Machine learning interpretability.
+
+
+### B.Sc Statistics
+
+*Universidad Santo Tomás, Bogota, Colombia*
+
+I centered my research interest on stochastic processes, Bayesian statistics, continuous dependence models (Copulas), multivariate time series analysis and sampling strategies. I also learned traditional Machine Learning methods and analytics.
+
+
 # Strengths and Interests
 
 
 <span class="iconify-inline" data-icon="carbon:machine-learning-model" style="color: #ffbb2c"></span>
-Deep Learning
+Deep Learning and classical machine learning
 
-<span class="iconify-inline" data-icon="carbon:machine-learning" style="color: #5578ff"></span> Machine Learning (classical methods)
+<span class="iconify-inline" data-icon="carbon:machine-learning" style="color: #5578ff"></span> Machine Learning Operations (MLOps)
 
 <span class="iconify" data-icon="whh-statistics" style="color: #e80368"></span> Statistical Data Analysis
 
@@ -90,7 +89,7 @@ Deep Learning
 
 
 
-# Programing skills
+# Skills
 
 <span class="iconify-inline" data-icon="logos:python"></span> Python
 
@@ -98,7 +97,13 @@ Deep Learning
 
 <span class="iconify-inline" data-icon="cib:tensorflow" style="color: #ff8300;"></span>  Tensorflow (low level API and Keras)
 
-<span class="iconify-inline" data-icon="logos:pytorch"></span> Pytorch
+<span class="iconify-inline" data-icon="logos:pytorch-icon"></span> Pytorch
+
+<span class="iconify-inline" data-icon="logos:docker-icon"></span> Docker
+
+<span class="iconify-inline" data-icon="logos:airflow-icon"></span> Airflow
+
+<span class="iconify-inline" data-icon="simple-icons:mlflow"></span> MLFlow
 
 <span class="iconify-inline" data-icon="file-icons:caffe2"></span> Caffe
 
@@ -106,28 +111,25 @@ Deep Learning
 
 <span class="iconify-inline" data-icon="vscode-icons:file-type-sql"></span> SQL
 
+<span class="iconify-inline" data-icon="logos-git-icon"></span> Git and SVN
+
+<span class="iconify-inline" data-icon="logos-bash-icon"></span> Bash
+
 <span class="iconify-inline" data-icon="logos-java"></span> Java (Newie :D)
 
-
-# Software
 
 <span class="iconify-inline" data-icon="emojione-v1:stock-chart"></span> Eviews
 
 <span class="iconify-inline" data-icon="bx-bx-stats"></span> SAS/SPSS
 
-<span class="iconify-inline" data-icon="logos-git-icon"></span> Git and SVN
-
 <span class="iconify-inline" data-icon="emojione:robot-face"></span> SNPE and TIDL (Deep learning 
 runtimes)
-
-<span class="iconify-inline" data-icon="logos-bash-icon"></span> Bash
 
 <span class="iconify-inline" data-icon="vscode-icons:file-type-excel"></span> Excel
 
 <span class="iconify-inline" data-icon="logos-tableau-icon"></span> Tableau
 
 <span class="iconify-inline" data-icon="ri-stock-fill"></span> Bloomberg
-
 
 
 # Languages

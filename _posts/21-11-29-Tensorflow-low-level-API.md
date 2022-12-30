@@ -15,22 +15,21 @@ image:
 
 ## Introduction
 
-In the era before Google's Tensorflow 2.0 release (mid-2019), working in Tensorflow 1.x required a bit of practice and time to understand the workflow of their core APIs. If you wanted to define, train and evaluate deep neural networks, you were required to create **static graphs** and use `tf.Session`'s for pretty much everything. This made debugging large machine learning extremely complicated and inefficient, decreasing the enthusiasm of new deep learning practitioners to learn TF, which in the end made users migrate to more friendly or pythonic options such as Keras or PyTorch.
+Just before the release of Tensorflow 2.0 (mid 2019), developing large and complex deep learning models with Tensorflow 1.x required some understanding of how **static graph** semantics worked using `tf.Session`. This usually made machine learning development processes extremely complicated, difficult to explain and understand. Because of this the enthusiasm of new deep learning practitioners excited to learn TF, was reduced to migrating to more friendly or pythonic options such as Keras or PyTorch.
 
-
-Since Tensorflow 2.0 there are two types of APIs used to build and train deep neural networks. The first and most known is `tf.keras` which contains a high amount of tutorials and documentation available across the internet (the most known is the official tensorflow [documentation](https://www.tensorflow.org/api_docs/python/tf/keras)), but what if we don't want to rely on `tf.keras` development to build and train deep neural networks, but make our own layers/models with native Tensorflow code?
+Since Tensorflow 2.0 there are two types of APIs used to build and train deep neural networks. The first and most known is `tf.keras` which contains a high amount of tutorials and documentation available across the internet (the most known is the official tensorflow [documentation](https://www.tensorflow.org/api_docs/python/tf/keras)), but what if we don't want to rely on `tf.keras` development to build and train deep neural networks, but make our own layers, operations and models with native Tensorflow code?
 
 This post explains in detail how to define, build and call layers and models using Tensorflow's low level API. 
 
 ## Base Neural Networks Class (tf.Module)
 
-As the official [tensorflow documentation](https://www.tensorflow.org/api_docs/python/tf/Module) says, `tf.Module` is a base class for deep neural networks, quite similar to what we have in PyTorch with `nn.Module`. If we want to build a new layer or model we have to subclass it and initialize the trainable/non-trainable parameters as we want using [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable). 
+As the official [tensorflow documentation](https://www.tensorflow.org/api_docs/python/tf/Module) says, `tf.Module` is a base class for deep neural networks, quite similar to what we have in PyTorch using `nn.Module`. If we want to build a new layer/operation or model, we have to subclass `tf.Module` and initialize all trainable/non-trainable parameters using [`tf.Variable`](https://www.tensorflow.org/api_docs/python/tf/Variable). 
 
-For this example and as a complement to the recent update of the official documentation (which explains clearly how to build a **Multilayer Perceptron Network - MLP**). We will define a **Convolutional Neural Network CNN**.
+For this example and as a complement to the recent update of the official documentation (which explains clearly how to build a **Multilayer Perceptron Network - MLP**). We will create a **Convolutional Neural Network CNN**.
 
-### Create layers
+### Create a new trainable layer
 
-1. We define define our initialization methods. In most of the cases we are interested in training *weights* and *biases*
+1. To start, we need to define our trainable variables (a.k.a weights), to do this we need to initialize them using some initialization method (ex. Normal, Glorot, Xavier, etc). In the case of deep neural networks we are interested in defining and training *weights* and *biases*
 
     ```python
     def weights(name, shape, mean=0.0, stddev=0.02):
@@ -44,7 +43,7 @@ For this example and as a complement to the recent update of the official docume
         return var
     ```
 
-2. We create a class for our layer, in this case a 2D convolutional layer, in contrast to the official TF docs we can create the shapes of the *weights* and *biases* inferring their shapes directly on the first forward pass
+2. We want to create an object for our new layer, in this case a 2D convolutional layer, in contrast to the official TF docs, we can create the shapes of the *weights* and *biases* inferring their shapes directly on the first forward pass
 
 
     ```python
@@ -162,16 +161,16 @@ For this example and as a complement to the recent update of the official docume
 
 ### Create a model
 
-Once the layers are defined with `tf.Module` we can write a complete model. In this case a CNN. To do this, we first have to define a couple of extra standard operations used in this type of models, e.g. max-pooling, linear/dense layers, etc.
+Once the layers are defined with `tf.Module` we can write a complete model. In this case a CNN. To do this, we first have to define a couple of common operations used in these type of models, e.g. max-pooling, linear/dense layers, etc.
 
-First we start with max pool (quite similar to what can be expected in tensorflow 1.x but without the name scoping):
+Starting with max pool (quite similar to what can be expected in tensorflow 1.x but without the name scoping):
 
 ```python
 def max_pool2d(x, size=2, stride=None, padding='VALID', name=None):
     """
     Common max-pooling 2D layer
     """
-    # Here we are not explicitly paddding the input as in the Conv2D
+    # Here we are not explicitly padding the input as in the Conv2D
     stride = stride or size # if no stride is given use the pool size
     x = tf.nn.max_pool2d(x,
                          ksize=[1, size, size, 1],
@@ -181,7 +180,7 @@ def max_pool2d(x, size=2, stride=None, padding='VALID', name=None):
     return x
 ```
 
-Then we can refine a bit the `Dense` layer of the TF [documentation](https://www.tensorflow.org/api_docs/python/tf/Module) with the tweaks from the `Conv2D` layer previously defined as follows:
+Next, we can refine the `Dense` layer of the TF [documentation](https://www.tensorflow.org/api_docs/python/tf/Module) a bit with the tweaks of the `Conv2D` layer defined above as follows:
 
 ```python
 class Dense(tf.Module):
@@ -254,7 +253,7 @@ print(output) # probability
 tf.Tensor([[0.50065225]], shape=(1, 1), dtype=float32)
 ```
 
-In order to check the correctness of the name scoping we can always print how some variables may look like when debugging. For example, here I want to check if my last layer follows the appropriate hierarchy (model/layer/name_of_the_weight):
+In order to check the correctness of the name scoping we can always print how some variables may look like when debugging. For example, here I want to check if my last layer follows the appropriate hierarchy `(model_name/name_of_the_layer/name_of_the_weight)`:
 ```python
 output_variables = [var for var in net.trainable_variables if 'output' in var.name]
 print(output_variables)
@@ -275,13 +274,13 @@ We finally have a model!.
 
 ## Further steps
 
-Once the final model is designed we can create a custom training pipeline. This involves using a loop as in PyTorch where we perform training and validation steps.
+Once the final model is designed we can create a custom training pipeline. This involves using a training loop as in PyTorch where we need to define training and validation steps.
 
 To write a custom training step we can use `tf.GradientTape` and decorate its function with `@tf.function` to speed up its computation. This tutorial in the official [Tensorflow documentation](https://www.tensorflow.org/guide/keras/writing_a_training_loop_from_scratch) shows pretty well how the low level training/validation loop logic works. The main difference in this case would be using the model we defined above instead of `tf.keras.Model`.
 
 Additional steps might imply writing a summary to log the training metrics in Tensorboard (using `tf.summary.create_file_writer`) and save checkpoints with the help of a checkpoint manager (`tf.train.Checkpoint` and `tf.train.CheckpointManager`). I will create another blog post showing their usage when writing low level TF pipelines.
 
-For now, this link is sample showing an interesting custom training pipeline that mixes these concepts (summaries and checkpoints) in some models written with `tf.keras.Model` for retina damage detection in OCT scans: [Link](https://github.com/miguelalba96/OCT_project) 
+For now, this link serves as a example showing how to manage these custom training pipeline concepts (summaries and checkpoints) in some models written with `tf.keras.Model` for retina damage detection in OCT scans: [Link](https://github.com/miguelalba96/OCT_project) 
 
 This is a link to the Google Colab to run all the code from this post:
 [Link](https://colab.research.google.com/drive/18KOzhewyqBGAw_zNWfKWW1IA85qecn1c?usp=sharing)
